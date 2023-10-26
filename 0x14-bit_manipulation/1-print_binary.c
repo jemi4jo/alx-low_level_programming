@@ -1,35 +1,26 @@
 #include "main.h"
 
-unsigned long int _pow(unsigned int base, unsigned int power)
-{
-	unsigned long int num;
-	unsigned int a;
-
-	num = 1;
-	for (a = 1; a <= power; a++)
-		num *= base;
-	return (num);
-}
+/**
+ * print_binary - equivalent of a decimal number that prints a binary
+ * @n: the amount or number binary to be printed
+ */
 
 void print_binary(unsigned long int n)
 {
-	unsigned long int divisor, check;
-	char flag;
+        int leona, Sis_hoffmann = 0;
+        unsigned long int new;
 
-	flag = 0;
-	divisor = _pow(2, sizeof(unsigned long int) * 8 - 1);
-	while (divisor != 0)
-	{
-		check = n & divisor;
-		if (check == divisor)
-		{
-			flag = 1;
-			_putchar('1');
-		}
-		else if (flag == 1 || divisor == 1)
-		{
-			_putchar('0');
-		}
-		divisor >>= 1;
-	}
+        for (leona = 63; leona >= 0; leona--)
+        {
+                new = n >> leona;
+                if (new & 1)
+                {
+                        _putchar('1');
+                        Sis_hoffmann++;
+                }
+                else if (new)
+                        _putchar('0');
+        }
+        if (!new)
+                _putchar('0');
 }
