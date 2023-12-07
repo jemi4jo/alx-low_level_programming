@@ -1,65 +1,34 @@
-#include "lists.h"
+#ifndef _LISTS_
+#define _LISTS_
+
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
- * delete_dnodeint_at_index - delete node at give index
- * @head:list
- * @index:given index
- * Return: -1 or 0
- */
-int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
-{
-	dlistint_t *start;
-	unsigned int i;
-	unsigned int len;
-	len = len_node(&head);
-
-	start = *head;
-	if (*head == NULL)
-		return (-1);
-	if (index == 0)
-	{
-		start = start->next;
-		free(*head);
-		*head = start;
-		if (start != NULL)
-			start->prev = NULL;
-		return (1);
-	}
-	for (i = 0; i <= index - 1; i++)
-	{
-		start = start->next;
-		if (!start)
-			return (-1);
-	}
-	if (len - 1 == index)
-	{
-		start->prev->next = NULL;
-		free(start);
-		return (1);
-	}
-	start->prev->next = start->next;
-	start->next->prev = start->prev;
-	free(start);
-	return (1);
-}
-
-/**
- * len_node - list len
+ * struct dlistint_s - doubly linked list
+ * @n: integer
+ * @prev: points to the previous node
+ * @next: points to the next node
  *
- * @node:list
- * Return:unsigned int
+ * Description: doubly linked list node structure
+ * for ALX project
  */
-unsigned int len_node(dlistint_t **node)
+typedef struct dlistint_s
 {
-	unsigned int len = 0;
-	dlistint_t *start;
+	int n;
+	struct dlistint_s *prev;
+	struct dlistint_s *next;
+} dlistint_t;
 
-	start = *node;
-	while (start != NULL)
-	{
-		len += 1;
-		start = start->next;
-	}
-	return (len);
-}
+size_t print_dlistint(const dlistint_t *h);
+size_t dlistint_len(const dlistint_t *h);
+dlistint_t *add_dnodeint(dlistint_t **head, const int n);
+dlistint_t *add_dnodeint_end(dlistint_t **head, const int n);
+void free_dlistint(dlistint_t *head);
+dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index);
+int sum_dlistint(dlistint_t *head);
+dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n);
+int delete_dnodeint_at_index(dlistint_t **head, unsigned int index);
+
+
+#endif
